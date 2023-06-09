@@ -1,5 +1,4 @@
-# civil-status-achiving-system
-this system keeps track of all the civil status documents
+ 
 What the project does:
 The Civil Status Registrar Archive is a digital system that stores and manages civil status registrar documents. The system involves the digitization process of manually collected data from birth, marriage, and death certificates. This involves scanning paper documents to generate electronic copies and storing them in a digital archive. The electronic copies can be accessed remotely and searched quickly, improving the efficiency and effectiveness of managing and storing civil status data.
 
