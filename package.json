@@ -1,0 +1,22 @@
+{
+  "name": "frankl",
+  "version": "1.0.0",
+  "description": "Hello word",
+  "main": "main.js",
+  "scripts": {
+    "test": "OK",
+    "start": "electron ."
+  },
+  "keywords": [
+    "Essai"
+  ],
+  "author": "Franklin",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^25.0.1"
+  },
+  "dependencies": {
+    "mysql": "^2.18.1",
+    "mysql2": "^3.3.3"
+  }
+}
