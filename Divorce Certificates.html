@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/bootstrap-5.2.0-dist/css/bootstrap.min.css">
+    <script src="assets/bootstrap-5.2.0-dist/js/bootstrap.min.js"></script>
+    <script src="assets/bootstrap-5.2.0-dist/js/bootstrap.js"></script>
+    <script src="assets/bootstrap-5.2.0-dist/js/jquery-3.6.0.js"></script>
+    <style>
+* {box-sizing: border-box}
+body {font-family: "Lato", sans-serif;}
+
+/* Style the tab */
+.tab {
+  margin-bottom: 10px;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  float: left;
+  /*border: 1px solid #ccc;*/
+  background-color: #f1f1f1;
+  width: 30%;
+  /*height: 300px;*/
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 30px;
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  margin-bottom: 10px;
+  float: left;
+  padding: 0px 12px;
+  /*border: 1px solid #ccc;*/
+  width: 70%;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border-left: none;
+  background-color: rgba(62, 63, 62, 0.5);
+  /*height: 300px;*/
+}
+    </style>
+</head>
+<body id="body" class=" text-light">
+
+<div class="container-fluid ps-5 pe-0">
+    <div class="row me-0 mt-4">
+        <div class="container-fluid ">
+          <div class="row">
+            <div class="col-1">
+              <div class="row my-1">
+                <a href="home.html" class="btn btn-light"> Back</a>
+              </div>
+            </div>
+            
+          </div>
+          <div class="row">
+            <div class="col-10 px-2">
+              <div class="row">
+                  <h2>Divorce certificates</h2>
+  
+  <div class="tab ">
+    <button class="tablinks" >
+      <h4>
+          WELCOME
+      </h4>
+     <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, veniam.
+     </p>
+    </button>
+    <button class="tablinks" onclick="openCity(event, 'Add')" id="defaultOpen"><span class="mx-4">ADD <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg></span></button>
+    <button class="tablinks " onclick="openCity(event, 'Search')"><span class="mx-3">SEARCH <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg></span> </button>
+  </div>
+  
+  <div id="London" class="tabcontent">
+    <h3>London</h3>
+    <p>London is the capital city of England.</p>
+  </div>
+  
+  <div id="Add" class="tabcontent">
+      <div class="row">
+          <div class="col-8 ms-5">
+              <div class="row mt-3"><h3>Add a new document</h3></div>
+              <div class="row">
+                  <div class="col-5">
+                    <div class="row">
+                      <form method="post" id="another_divorce">
+   
+                        <div class="row">
+                           <label for="husband_id">Husband ID:</label><br>
+                        <input type="number" id="husband_id" name="husband_id" required><br>
+                        </div>
+                        <div class="row">
+                          <label for="husband_name">Husband Name:</label>
+                        <input type="text" id="husband_name" required>
+                        </div>
+                    
+                        <div class="row">
+                          <label for="wife_id">Wife ID:</label><br>
+                        <input type="number" id="wife_id" name="wife_id" required>
+                        </div>
+                        <div class="row">
+                          <label for="wife_name">Wife ID:</label><br>
+                          <input type="text" id="wife_name" required>
+                        </div>
+                        
+                        <div class="row">
+                          <label for="marriage_id">Marriage certificate No:</label><br>
+                        <input type="number" id="marriage_id" required >
+                        </div>
+                    
+                        <div class="row">
+                          <label for="date_of_divorce">Date of Divorce:</label><br>
+                        <input type="date" id="date_of_divorce" name="date_of_divorce" required>
+                        </div>
+                        
+                        <div class="row">
+                          <label for="place_of_divorce">Place of Divorce:</label><br>
+                        <input type="text" id="place_of_divorce" name="place_of_divorce" required><br>
+                        </div>
+                        
+                      
+                        <div class="row mb-3">
+                          <div class="row px-3 my-2">
+                                      <button id="submit" type="submit" class="btn btn-primary rounded-4"><span class="text-center">Submit</span></button>
+                                  </div>
+                      </div>
+                      </form>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+     
+  </div>
+  
+  <div id="Search" class="tabcontent">
+      <div class="row">
+          <div class="col-8 ms-5">
+              <div class="row mt-3">
+                 <h3>Search</h3> 
+              </div>
+              <div class="row">
+                 <p>Search is the capital of Japan.</p> 
+              </div>
+              <div class="row">
+                  <div class="col-5">
+                      <form action="" method="get">
+                          <div class="row">
+                              <label for="Person">name:</label>
+                      <input type="text" id="Person" ><br>
+                          </div>
+                      <div class="row">
+                          <label for="Date">Date:</label>
+                      <input type="text" id="Date" ><br>
+                      </div>
+                      
+  
+                          <div class="row">
+                              <div class="row px-3 my-2">
+                                          <button  type="submit" class="btn btn-primary rounded-4"><span class="text-center">Submit</span></button>
+                                      </div>
+                          </div>
+                  </form>
+                  </div>
+                  
+              </div>
+          </div>
+      </div>
+    
+    
+  </div>
+  
+  <script>
+  function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+  
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultOpen").click();
+  </script>
+              </div>
+          </div>
+          </div>
+        </div>
+    </div>
+</div>
+   
+<script src="renderer.js"></script>
+</body>
+</html> 
