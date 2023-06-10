@@ -1,0 +1,25 @@
+#container {
+    position: relative;
+}
+#child {
+    position: absolute;
+    top: 20%;
+    left: 17%;
+    /*transform: translate(-50%, -50%);*/
+}
+/*#container2 {
+    position: relative;
+}
+#child2 {
+    position: absolute;
+    top: 15%;
+    left: 17%;
+}*/
+
+#body { 
+    background-image: url("backImage.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: end;
+} 
+
