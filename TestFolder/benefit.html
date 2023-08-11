@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FERDSILINKS BENEFITS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    body{
+        background-image: url("image.jpg");
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        text-align: left;
+        padding: 8px;
+        border: 1px solid #ddd;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>
+<body>
+     <nav>
+         <ul>
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="Editbenefit.html">Edit Benefits</a></li>
+            <li><a href="addBenefit.html">Add benefits</a></li>
+             
+            <li><a href="aboutbenefit.html">About benefits</a></li>
+          
+         </ul>
+     </nav>
+     <h1 style="text-align: center;">Benefits List</h1>
+     <table>
+		<thead>
+			<tr>
+				<th>Benefit ID</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Cost</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+				// code to retrieve data from database and display it in the table
+			?>
+		</tbody>
+	</table>
+</body>
+</body>
+</html>

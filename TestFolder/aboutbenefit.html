@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit Benefit</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		body{
+			background-image: url("image.jpg");
+		}
+		label {
+			display: block;
+			margin-bottom: 10px;
+		}
+		input[type="submit"] {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	
+	<nav>
+		<ul>
+			<li><a href="homepage.html">Home</a></li>
+			<li><a href="editbenefit.html">list benefits</a></li>
+			<li><a href="addBenefit.html">Add benefits</a></li>
+            
+            <li><a href="aboutbenefit.html">Edit benefits</a></li>
+		</ul>
+	</nav>
+	<h1>Edit Benefit</h1>
+	<form action="edit_benefit.php" method="post">
+		<input type="hidden" id="benefit_id" name="benefit_id" value="1">
+
+		<label for="name">Name:</label>
+		<input type="text" id="name" name="name" value="Health Insurance" required>
+
+		<label for="description">Description:</label>
+		<textarea id="description" name="description" required>Provides medical coverage for employees and their families.</textarea>
+
+		<label for="cost">Cost:</label>
+		<input type="number" id="cost" name="cost" value="200" required>
+
+		<input type="submit" value="Save Changes">
+	</form>
+</body>
+</html>

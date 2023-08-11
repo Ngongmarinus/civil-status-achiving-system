@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Job Titles List</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		body{
+			background-image: url("image.jpg");
+		}
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		th, td {
+			text-align: left;
+			padding: 8px;
+			border: 1px solid #ddd;
+		}
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+		button{
+			text-align: center;
+			text-transform: capitalize;
+			font-family: Arial, Helvetica, sans-serif;
+			height: 35px;
+			width: 150px;
+			background-color: rgb(164, 189, 164);
+			margin-bottom: 10px;
+		}
+		#retrieve-table-content :hover{
+			background-color:  rgb(198, 231, 198);
+		}
+	</style>
+</head>
+<body>
+	
+	<nav>
+		<ul>
+			<li><a href="homepage.html">Home</a></li>
+			<li><a href="employee.html">Employees</a></li>
+			<li><a href="employeeHist.html">Employee Employment History</a></li>
+			<li><a href="job.html">Job Titles</a></li>
+			<li><a href="department.html">Departments</a></li>
+			<li><a href="benefit.html">Benefits</a></li>
+			<li><a href="viewperfo.html">Performance Reviews</a></li>
+			<li><a href="training.html">Training Records</a></li>
+			<li><a href="reports.html">Reports</a></li>
+		</ul>
+	</nav>
+	<h1>Job Titles List</h1>
+ <form id="job-titles-retrieval-form">
+  <label for="job-titles-id"> Enter the id of your job:</label>
+  <input type="text" name="job-titles-id" id="job-titles-id">
+  <button type="submit">Retrieve data</button>
+ </form>
+<table>
+  <thead>
+    <tr>
+      <th>Job ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Qualification</th>
+    </tr>
+  </thead>
+  <tbody id="job-titles-list-body">
+  </tbody>
+</table>
+<form id="job-titles-edit-form">
+  <label for="job-title-id-edit">Job ID:</label>
+  <input type="number" id="job-title-id-edit" name="job-title-id-edit" required>
+  <br>
+  <label for="job-title-name-edit">Job Name:</label>
+  <input type="text" id="job-title-name-edit" name="job-title-name-edit">
+  <br>
+  <label for="job-description-edit">Description:</label>
+  <input type="text" id="job-description-edit" name="job-description-edit">
+  <br>
+  <label for="required-qualifications-edit">Qualification:</label>
+  <input type="text" id="required-qualifications-edit" name="required-qualifications-edit">
+  <button type="submit">Update Job Info</button>
+</form>
+	<script>
+	const ipcRenderer = require('electron').ipcRenderer;
+
+function retrieveJobTitleData(jobTitleId) {
+  ipcRenderer.invoke('retrieve-job-title-data', 'bjob_titles', jobTitleId).then((response) => {
+    if (response.success) {
+      const jobdata = response.data;
+      if (jobdata){
+        const joblistbody = document.getElementById('job-titles-list-body');
+        joblistbody.innerHTML = '';
+        const row = joblistbody.insertRow();
+        row.insertCell().textContent = jobdata.job_title_id;
+        row.insertCell().textContent = jobdata. job_title_name;
+        row.insertCell().textContent = jobdata.job_description;
+        row.insertCell().textContent = jobdata.required_qualifications;
+        const actionCell = row.insertCell();
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.addEventListener('click', () => {
+          editjobdata(jobdata);
+        });
+        actionCell.appendChild(editButton);
+      } else {
+        console.log(`Jod title with Id ${jobTitleId} not found`);
+       // alert('job title Id not found');
+      }
+    } else{
+      console.error(response.message);
+    }
+  }).catch((err) => {
+    console.error(err);
+  });
+}
+
+function updateJobTitleData(jobTitleId, data) {
+  ipcRenderer.invoke('update-job-title-data', 'bjob_titles', jobTitleId, data).then((response) => {
+    if (response.success){
+      
+     console.log('upadte successfully1');
+    } else{
+      console.error(response.message);
+      // handle the error
+    }
+  }).catch((err) => {
+    console.error(err);
+    // handle the error
+  });
+}
+let jobData;
+function editJobTitleData() {
+  const jobTitleEditForm = document.getElementById('job-title-edit-form');
+  jobTitleEditForm.elements['job-title-id-edit'].value = jobData.job_title_id;
+  jobTitleEditForm.elements['job-title-name-edit'].value = jobData.job_title_name;
+  jobTitleEditForm.elements['job-description-edit'].value = jobData.job_description;
+  jobTitleEditForm.elements['required-qualifications-edit'].value = jobData.required_qualifications;
+}
+// Add the submit event listener when the page loads
+window.addEventListener('load', () => {
+  const jobTitleEditForm = document.getElementById('job-title-edit-form');
+
+  jobTitleEditForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = {
+      job_title_id: jobTitleEditForm.elements['job-title-id-edit'].value,
+      job_title_name: jobTitleEditForm.elements['job-title-name-edit'].value,
+      job_description: jobTitleEditForm.elements['job-description-edit'].value,
+      required_qualifications: jobTitleEditForm.elements['required-qualifications-edit'].value
+    };
+    const jobTitleId = jobData.job_title_id;
+    updateJobTitleData(jobTitleId, data);
+  });
+});
+
+  /*jobTitleEditForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = {
+      job_title_id: jobTitleEditForm.elements['job-title-id-edit'].value,
+      job_title_name: jobTitleEditForm.elements['job-title-name-edit'].value,
+      job_description: jobTitleEditForm.elements['job-description-edit'].value,
+      required_qualifications: jobTitleEditForm.elements['required-qualifications-edit'].value
+    };
+    updateJobTitleData(jobData.job_title_id, data);
+  });*/
+
+
+const jobTitleRetrievalForm = document.getElementById('job-titles-retrieval-form');
+jobTitleRetrievalForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const jobTitleId = jobTitleRetrievalForm.elements['job-titles-id'].value;
+  retrieveJobTitleData(jobTitleId);
+});
+	  </script>
+  
+</body>
+</html>

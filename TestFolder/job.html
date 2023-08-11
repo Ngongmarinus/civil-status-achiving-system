@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOB OFFER BY FERDSILINKS</title>
+    <link rel="stylesheet" href="style.css">
+ 
+</head>
+<style>
+    body{
+        background-image: url("image.jpg");
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        text-align: left;
+        padding: 8px;
+        border: 1px solid #ddd;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="job.html">list all jobs available</a></li>
+            <li><a href="jobLIst.html">Edit the jobs</a></li>
+            <li><a href="addjob.html">Add jobs</a></li>
+            <li><a href="about.html"> About us</a></li>
+        </ul>
+    </nav>
+   
+    <table>
+		<thead>
+			<tr>
+				<th>Job Title ID</th>
+				<th>Title</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+				// code to retrieve data from database and display it in the table
+			?>
+		</tbody>
+	</table>
+</body>
+</html>

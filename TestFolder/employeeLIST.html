@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Employee List</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		th, td {
+			text-align: left;
+			padding: 8px;
+			border: 1px solid #ddd;
+		}
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+		body{
+			background-image: url("image.jpg");
+		}
+	</style>
+</head>
+<body>
+	
+	<nav>
+		<ul>
+			<li><a href="homepage.html">Home</a></li>
+			<li><a href="employee.html">Employees</a></li>
+			<li><a href="employeehistory.html">Employee Employment History</a></li>
+			<li><a href="job_titles.php">Job Titles</a></li>
+			<li><a href="department.html">Departments</a></li>
+			<li><a href="benefit.html">Benefits</a></li>
+			<li><a href="performance_reviews.php">Performance Reviews</a></li>
+			<li><a href="training.html">Training Records</a></li>
+			<li><a href="reports.html">Reports</a></li>
+		</ul>
+	</nav>
+<h1>Employee List</h1>
+<form id="employee-retrieval-form">
+	<label for="employee-id">Enter your employee ID:</label>
+	<input type="text" id="employee-id" name="employee-id">
+	<button type="submit">Retrieve Data</button>
+  </form>
+  
+  <table>
+	<thead>
+	  <tr>
+		<th>Employee ID</th>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Address</th>
+		<th>Phone Number</th>
+		<th>Email</th>
+		<th>Date of Birth</th>
+		<th>Gender</th>
+	  </tr>
+	</thead>
+	<tbody id="employee-list-body">
+	</tbody>
+  </table>
+  
+  <form id="employee-edit-form">
+	<input type="hidden" name="employee-id-edit" id="employee-id-edit">
+	<label for="first-name-edit">First Name:</label>
+	<input type="text" name="first-name-edit" id="first-name-edit"  placeholder="first name...">
+	<label for="last-name-edit">Last Name:</label>
+	<input type="text" name="last-name-edit" id="last-name-edit" placeholder="last name....">
+	<label for="address-edit">Address:</label>
+	<input type="text" name="address-edit" id="address-edit" placeholder="address....">
+	<label for="phone-number-edit">Phone Number:</label>
+	<input type="phone number" name="phone-number-edit" id="phone-number-edit" placeholder="phone...">
+	<label for="email-edit">Email:</label>
+	<input type="text" name="email-edit" id="email-edit" placeholder="email...">
+	<label for="date-of-birth-edit">Date of Birth:</label>
+	<input type="date" name="date-of-birth-edit" id="date-of-birth-edit" placeholder="date of birth ..">
+	<label for="gender-edit">Gender:</label>
+	<input type="text" name="gender-edit" id="gender-edit" placeholder="gender...">
+	<button type="submit">Update Employee Data</button>
+  </form>
+  
+  <script>
+	const ipcRenderer = require('electron').ipcRenderer;
+  
+	function retrieveEmployeeData(employeeId) {
+	  ipcRenderer.invoke('empdata-retrieval', 'Aemployees', employeeId).then((response) => {
+		if (response.success) {
+		  const employeeData = response.data;
+		  if (employeeData) {
+			const employeeListBody = document.getElementById('employee-list-body'); 
+			employeeListBody.innerHTML = '';
+			const row = employeeListBody.insertRow();
+			row.insertCell().textContent = employeeData.employee_id;
+			row.insertCell().textContent = employeeData.first_name;
+			row.insertCell().textContent = employeeData.last_name;
+			row.insertCell().textContent = employeeData.address;
+			row.insertCell().textContent = employeeData.phone_number;
+			row.insertCell().textContent = employeeData.email;
+			row.insertCell().textContent = employeeData.date_of_birth;
+			row.insertCell().textContent = employeeData.gender;
+			const actionsCell = row.insertCell();
+			const editButton = document.createElement('button');
+			editButton.textContent = 'Edit';
+			editButton.addEventListener('click', () => {
+			  editEmployeeData(employeeData);
+			});
+			actionsCell.appendChild(editButton);
+		  } else {
+			console.log(`Employee with ID ${employeeId} not found`);
+		  }
+		} else {
+		  console.error(response.message);
+		  // Handle the error
+		}
+	  }).catch((err) => {
+		console.error(err);
+		// Handle the error
+	  });
+	}
+  
+	function updateEmployeeData(employeeId, data) {
+	  ipcRenderer.invoke('data-update1', 'Aemployees', employeeId, data).then((response) => {
+		if (response.success) {
+		  console.log('Employee data updated successfully');
+		  // Handle the success
+		} else {
+		  console.error(response.message);
+		  // Handle the error
+		}
+	  }).catch((err) =>{
+		console.error(err);
+		// Handle the error
+	  });
+	}
+  
+	function editEmployeeData(employeeData) {
+	  const employeeEditForm = document.getElementById('employee-edit-form');
+	  employeeEditForm.elements['employee-id-edit'].value = employeeData.employee_id;
+	  employeeEditForm.elements['first-name-edit'].value = employeeData.first_name;
+	  employeeEditForm.elements['last-name-edit'].value = employeeData.last_name;
+	  employeeEditForm.elements['address-edit'].value = employeeData.address;
+	  employeeEditForm.elements['phone-number-edit'].value = employeeData.phone_number;
+	  employeeEditForm.elements['email-edit'].value = employeeData.email;
+	  employeeEditForm.elements['date-of-birth-edit'].value = employeeData.date_of_birth;
+	  employeeEditForm.elements['gender-edit'].value = employeeData.gender;
+	  employeeEditForm.addEventListener('submit', (event) => {
+		event.preventDefault();
+		const data = {
+		  first_name: employeeEditForm.elements['first-name-edit'].value,
+		  last_name: employeeEditForm.elements['last-name-edit'].value,
+		  address: employeeEditForm.elements['address-edit'].value,
+		  phone_number: employeeEditForm.elements['phone-number-edit'].value,
+		  email: employeeEditForm.elements['email-edit'].value,
+		  date_of_birth: employeeEditForm.elements['date-of-birth-edit'].value,
+		  gender: employeeEditForm.elements['gender-edit'].value,
+		};
+		updateEmployeeData(employeeData.employee_id, data);
+	  });
+	}
+  
+	const employeeRetrievalForm = document.getElementById('employee-retrieval-form');
+	employeeRetrievalForm.addEventListener('submit', (event) => {
+	  event.preventDefault();
+	  const employeeId = employeeRetrievalForm.elements['employee-id'].value;
+	  retrieveEmployeeData(employeeId);
+	});
+  </script>
+</body>
+</html>

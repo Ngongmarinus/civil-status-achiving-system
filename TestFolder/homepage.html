@@ -1,0 +1,152 @@
+ 
+<!DOCTYPE html>
+<head>
+	<title 
+	style="text-transform: uppercase;
+	 font-family: Arial, Helvetica, sans-serif;
+	  text-shadow: 15px;
+	  ">FERDSILINKS MANAGEMENT SYSTEM</title>
+<style>
+	body {
+		background-image: url(image.jpg);
+		font-family: Arial, sans-serif;
+		color: blue;
+		margin: 0;
+		padding: 0;
+	}
+
+	h1 {
+		color: red;
+		text-align: center;
+		margin-top: 20px;
+	}
+
+	 
+	nav {
+box-shadow: 2px 10px 10px rgb(3, 66, 66);
+ 
+
+	}
+
+	nav ul {
+		margin: 0;
+		padding: 0;
+		list-style-type: none;
+		background-color: darkgray;
+		overflow: hidden;
+		border-radius: 15px;
+	}
+	nav li a.active {
+		background-color: green;
+		color: white;
+	  }
+	nav li {
+		float: left;
+	}
+
+	nav li a {
+		display: block;
+		align-items: center;
+		color: white;
+		text-align: center;
+		padding: 14px 16px;
+		text-decoration: none;
+	}
+
+	nav li a:hover {
+		background-color: rgb(97, 200, 231);
+	}
+
+	.container {
+		margin: 0 auto;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-evenly;
+		align-items: center;
+		box-sizing: border-box;
+		padding: 20px;
+		height: 100vh;
+	}
+
+	.card {
+		 
+		padding: 20px;
+		background-color: rgb(255, 255, 255);
+		color: rgb(6, 6, 148);
+		text-align: center;
+		font-size: 20px;
+		font-weight: bold;
+		text-decoration: none;
+		box-sizing: border-box;
+		box-shadow: 0 0 10px rgba(0,0,0,0.3);
+		border-radius: 10px;
+		flex: 1 1 30%;
+		min-width: 250px;
+		height: 300px;
+		transition: all 0.2s ease-in-out;
+		font-family: Arial, Helvetica, sans-serif;
+		text-transform: uppercase;
+		margin: 50px;
+	}
+
+	.card a {
+		text-decoration: none;
+	}
+
+	.card:hover {
+		background-color: gray;
+		
+		color: white;
+		transform: translateY(-5px);
+		box-shadow: 0 5px 10px rgba(145, 144, 144, 0.5);
+	}
+
+	/* media queries */
+	@media screen and (max-width: 768px) {
+		.container {
+			padding: 10px;
+		}
+
+		.card {
+			margin: 20px;
+			flex: 1 1 45%;
+			min-width: auto;
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		.card {
+			flex: 1 1 95%;
+			min-width: auto;
+			height: auto;
+		}
+	}
+</style>
+</head>
+<body>
+<nav>
+	<ul>
+		<li><a href="homepage.html">Home</a></li>
+		<li><a href="add_customer.html">Add Customers</a></li>
+		<li><a href="employee.html">Employees</a></li>
+		<li><a href="employeehistory.html">Employee Employment History</a></li>
+		<li><a href="job.html">Job Titles</a></li>
+		<li><a href="department.html">Departments</a></li>
+		<li><a href="benefit.html">Benefits</a></li>
+		<li><a href="addperf.html">Performance Reviews</a></li>
+		<li><a href="training.html">Trainings</a></li>
+		<li><a href="addPayroll.html">Add Payroll</a></li>
+	 
+	</ul>
+</nav>
+<h1 style="text-transform: capitalize; text-align: center; text-shadow: 15px; font-family: sans-serif;">WELCOME TO FERDSILINKS HOMEPAGE</h1>
+<div class="container">
+	<div class="card"  ><a href="employee.html">employees in ferdsilinks</a></div>
+	<div class="card"  ><a href="jobs.html"> view all available <br> jobs in ferdsilinks</a></div>
+	<div class="card"  ><a href="department.html">view all the departments <br> in ferdsilinks</a></div>
+	<div class="card"  ><a href="benefit.html"> view all the benefits <br> that awake good performance</a></div>
+	<div class="card"  ><a href="training.html"> view all the training goin <br> on in ferdsilinks</a></div>
+	<div class="card"  ><a href="reports.html">workers report on <br> daily activities</a></div>
+</div>
+</body>
+</html>

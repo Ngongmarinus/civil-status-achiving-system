@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Employee</title>
+  <link rel="stylesheet" href="styl.css">
+  <style>
+    
+body {
+  background-color: #fff;
+  background-image: url("image.jpg")
+}
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background-color: darkgray;
+  overflow: hidden;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+
+}
+
+nav li {
+  float: left;
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav li a:hover {
+  background-color: yellowgreen;
+}
+
+    #employee-form {
+      width: 70%;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      /* Add the following lines to give 200px on the left and right */
+      margin-left: 150px;
+      margin-right: 150px;
+      height: 500px;
+    }
+    
+    #employee-form label {
+      display: inline-block;
+      width: 30%;
+      margin-right: 1px;
+      text-align: left;
+      margin-left: 30px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: medium;
+     
+    
+    }
+    
+    #employee-form input,
+    #employee-form textarea,
+    #employee-form select {
+      display: inline-block;
+      width: 60%;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      height: 30px;
+    }
+    
+    #employee-form button[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      margin-left: 590px;
+      height: 50px;
+      width: 300px;
+    }
+    
+    #employee-form button[type="submit"]:hover {
+      background-color: #3e8e41;
+    }
+ 
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="employee.html">View All Employees</a></li>
+      <li><a href="employeeLIST.html">Display Employees</a></li>
+      <li><a href="employeeEdit.html">Edit Employee</a></li>
+      <li><a href="employeeHist.html">View Employee History</a></li>
+      <li><a href="addEmployee.html">Add Employee</a></li>
+      <li><a href="addEmployeeehist.html">Add Employee History</a></li>
+    </ul>
+  </nav>
+  <h1>Add Employee</h1>
+  <form id="employee-form">
+    <label for="employee-id">Id:</label>
+    <input type="number" id="employee-id" name="employee_id" required>
+    <label for="first-name">First Name:</label>
+    <input type="text" id="first-name" name="first_name" required>
+    
+    <label for="last-name">Last Name:</label>
+    <input type="text" id="last-name" name="last_name" required>
+    
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required>
+    
+    <label for="phone-number">Phone Number:</label>
+    <input type="number" id="phone-number" name="phone_number" required>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    
+    <label for="date-of-birth">Date of Birth:</label>
+    <input type="date" id="date-of-birth" name="date_of_birth" required>
+ 
+    
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender" required>
+      <option value="">Select Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+    
+    <button type="submit">Submit</button>
+  </form>
+  
+  
+  <script>
+    const { ipcRenderer } = require('electron');
+  
+    const form = document.querySelector('#employee-form');
+  
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+  
+      const formData = new FormData(form);
+  
+      const rowData = {
+        employee_id: formData.get('employee_id'),
+        firstName: formData.get('first_name'),
+        lastName: formData.get('last_name'),
+        address: formData.get('address'),
+        phoneNumber: formData.get('phone_number'),
+        email: formData.get('email'),
+        dateOfBirth: formData.get('date_of_birth'),
+        
+        gender: formData.get('gender')
+      };
+  
+      ipcRenderer.send('form-submission', { tableName: 'AEmployees', rowData });
+  
+      form.reset();
+    });
+  </script>
+</body>
+</html>

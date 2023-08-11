@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Benefits List</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		body{
+			background-image: url("image.jpg");
+		}
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		th, td {
+			text-align: left;
+			padding: 8px;
+			border: 1px solid #ddd;
+		}
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+	</style>
+</head>
+<body>
+
+	<nav>
+		<ul>
+			<li><a href="homepage.html">Home</a></li>
+			<li><a href="Editbenefit.html">list benefits</a></li>
+			<li><a href="addBenefit.html">Add benefits</a></li>
+            
+            <li><a href="aboutbenefit.html">About benefits</a></li>
+		</ul>
+	</nav>
+	<h1 style="text-align: center;">Benefits List</h1>
+	  <form id="benefits-retrieval-form">
+        <label for="benefits-id">Enter your benefit ID:</label>
+        <input type="text" id="benefits-id" name="benefits-id">
+        <button type="submit">Retrieve Data</button>
+      </form>
+	<table>
+		<thead>
+			<tr>
+				<th>Benefit ID</th>
+				<th>Employee ID</th>
+				<th>Insurance</th>
+				<th>Retirement Plan</th>
+				<th>Vacations</th>
+				<th>sick off days</th>
+			</tr>
+		</thead>
+		<tbody id="benefits-list-body">
+			 
+		</tbody>
+	</table>
+	<div>
+		<form id="fbenefits-edit-form">
+			<input type="hidden" id="benefit-id-edit" name="benefit-id-edit">
+			<input type="hidden" id="employee-Id-edit" name="employee-Id-edit" required>
+	
+			<label for="health-insurance-edit">Insurance:</label>
+			<input type="text" id="health-insurance-edit" name="health-insurance-edit" required>
+	
+			<label for="retirement-plan-edit">Retirement Plan:</label>
+			<input type="text" id="retirement-plan-edit" name="retirement-plan-edit" required>
+	
+			<label for="vacation-day-edit">Vacation Date:</label>
+			<input type="date" id="vacation-day-edit" name="vacation-day-edit" required>
+	
+			<label for="sick-days-edit">sick date:</label>
+			<input type="date" id="sick-days-edit" name="sick-days-edit" required>
+			 
+			<button type="submit">update benefits</button>
+		  </form>
+		  
+	</div>
+	<script>
+		const ipcRenderer = require('electron').ipcRenderer;
+
+		function retrieveBenefitData(benefitId) {
+			ipcRenderer.invoke('bdata-retrieval', 'fbenefits', benefitId).then((response) => {
+			  if (response.success) {
+				const benefitData = response.data;
+				if (benefitData) {
+				  constbenefitListBody = document.getElementById('benefits-list-body'); 
+				  
+				 benefitListBody.innerHTML = '';
+				  const row =benefitListBody.insertRow();
+				  row.insertCell().textContent = benefitData.benefit_id;
+				  row.insertCell().textContent = benefitData.employee_id;
+				  row.insertCell().textContent = benefitData.health_insurance;
+				  row.insertCell().textContent = benefitData.retirement_plan;
+				  row.insertCell().textContent = benefitData.vacation_days;
+				  row.insertCell().textContent = benefitData.sick_days;
+				 
+				  const actionsCell = row.insertCell();
+				  const editButton = document.createElement('button');
+				  editButton.textContent = 'Edit';
+				  editButton.addEventListener('click', () => {
+					editBenefitData(benefitData);
+				  });
+				  actionsCell.appendChild(editButton);
+				} else {
+				  console.log(`benefit with ID ${benefitId} not found`);
+				}
+			  } else {
+				console.error(response.message);
+				// Handle the error
+			  }
+			}).catch((err) => {
+			  console.error(err);
+			  // Handle the error
+			});
+		  }
+		  function updateBenefitData(benefitId, data) {
+			ipcRenderer.invoke('bdata-update', 'fbenefits', benefitId, data).then((response) => {
+			  if (response.success) {
+				console.log('benefit data updated successfully');
+				// Handle the success
+			  } else {
+				console.error(response.message);
+				// Handle the error
+			  }
+			}).catch((err) => {
+			  console.error(err);
+			  // Handle the error
+			});
+		  }
+		  
+		  function editBenefitData(benefitData) {
+			const benefitEditForm = document.getElementById('benefits-edit-form');
+			benefitEditForm.elements['benefit-id-edit'].value = benefitData.benefit_id;
+			benefitEditForm.elements['employee-Id-edit'].value = benefitData.employee_id;
+			benefitEditForm.elements['health-insurance-edit'].value = benefitData.health_insurance;
+			benefitEditForm.elements['retirement-plan-edit'].value = benefitData.retirement_plan;
+			benefitEditForm.elements['vacation-day-edit'].value = benefitData.vacation_days;
+			benefitEditForm.elements['sick-days-edit'].value = benefitData.sick_days;
+ 
+			
+			benefitEditForm.addEventListener('submit', (event) => {
+			  event.preventDefault();
+			  const benefitId =benefitEditForm.elements['benefit-id-edit'].value;
+			  const data = {
+			 
+				employee_id: benefitEditForm.elements['employee-Id-edit'].value,
+				health_insurance: benefitEditForm.elements['health-insurance-edit'].value,
+			   
+				retirement_plan: benefitEditForm.elements['retirement-plan-edit'].value,
+				vacation_days: benefitEditForm.elements['vacation-day-edit'].value,
+			   
+				sick_days: benefitEditForm.elements['sick-days-edit'].value,
+				 
+			  };
+			  
+			  ipcRenderer.invoke('bdata-update', 'fbenefits', benefitId, data)
+				.then((response) => {
+				  if (response.success) {
+					console.log('benefit data updated successfully');
+					// Handle the success
+				  } else {
+					console.error(response.message);
+					// Handle the error
+				  }
+				})
+				.catch((err) => {
+				  console.error(err);
+				  // Handle the error
+				});
+			});
+		  }
+
+		  const benefitRetrievalForm = document.getElementById('benefits-retrieval-form');
+		  benefitRetrievalForm.addEventListener('submit', (event) => {
+			event.preventDefault();
+			const benefitId = benefitRetrievalForm.elements['benefits-id'].value;
+			retrieveBenefitData(benefitId);
+		});
+
+	</script>
+</body>
+</html>

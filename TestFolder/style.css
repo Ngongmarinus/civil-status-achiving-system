@@ -1,0 +1,85 @@
+/* Set the background color to white */
+body {
+  background-color: white;
+}
+
+/* Style the navigation bar links */
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background-color: darkgray;
+  overflow: hidden;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+
+}
+
+nav li {
+  float: left;
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+nav a:active {
+  background-color: #c23434; /* Color when active */
+  color: #F5F5F5; /* Text color when active */
+}
+
+nav li a:hover {
+  background-color: yellowgreen;
+}
+
+/* Style the form */
+form {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: darkgray;
+  color: white;
+}
+h1
+{
+  text-align: center;
+}
+form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+form input[type="number"],
+form input[type="date"] {
+  padding: 5px;
+  border: none;
+  border-radius: 3px;
+  background-color: white;
+  margin-bottom: 10px;
+ 
+}
+
+form input[type="submit"] {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+   
+}
+
+form input[type="submit"]:hover {
+  background-color: white;
+  color: red;
+}
+label{
+  margin-left: 50px;
+}
+input{
+margin-left: 300px;
+}

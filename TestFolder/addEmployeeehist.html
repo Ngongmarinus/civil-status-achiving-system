@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Employment History</title>
+	<link rel="stylesheet" href="style1.css">
+	<style>
+		label {
+			display: block;
+			margin-bottom: 10px;
+		}
+		input[type="submit"] {
+			margin-top: 20px;
+		}
+
+		
+body {
+	background-color: #fff;
+	background-image: url("image.jpg")
+  }
+  nav ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	background-color: darkgray;
+	overflow: hidden;
+	border-radius: 15px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-ms-border-radius: 15px;
+  
+  }
+  
+  nav li {
+	float: left;
+  }
+  
+  nav li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+  }
+  
+  nav li a:hover {
+	background-color: yellowgreen;
+  }
+  
+  
+  #employee-employment-history-form {
+	width: 70%;
+	margin: 0 auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	/* Add the following lines to give 200px on the left and right */
+	margin-left: 150px;
+	margin-right: 150px;
+	height: 450px;
+  }
+  
+  #employee-employment-history-form label {
+	display: inline-block;
+	width: 30%;
+	margin-right: 1px;
+	text-align: left;
+	margin-left: 30px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+  
+  }
+  
+  #employee-employment-history-form input,
+  #employee-employment-history-form textarea,
+  #employee-employment-history-form select {
+	display: inline-block;
+	width: 60%;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	height: 30px;
+  }
+  
+  #employee-employment-history-form input[type="submit"] {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	padding: 10px 20px;
+	font-size: 16px;
+	margin-top: 50px;
+	margin-left: 1px;
+	height: 50px;
+	width: 300px;
+  }
+  
+  #employee-employment-history-form input[type="submit"]:hover {
+	background-color: #3e8e41;
+  }
+  
+	</style>
+</head>
+<body>
+	
+	<nav>
+		<ul><li><a href="homepage.html">Home</a></li>
+            <li><a href="employeehistory.html">view all employees</a></li>
+            
+            <li><a href="employeeHist.html">view employee history</a></li>
+            
+            <li><a href="addEmployeeehist.html">add employee history</a></li>
+			<li><a href="reports.html">Reports</a></li>
+		</ul>
+	</nav>
+	<h1>Add Employment History</h1>
+	<form id="employee-employment-history-form">
+		 
+		<label for="employee-id1">Employee ID:</label>
+		<input type="number" id="employee-id1" name="employee_id1" required>
+		
+		<label for="job-title-id">Job Title ID:</label>
+		<input type="number" id="job-title-id" name="job_title_id" required>
+		
+		<label for="department-id">Department ID:</label>
+		<input type="number" id="department-id" name="department_id" required>
+		
+		<label for="start-date">Start Date:</label>
+		<input type="date" id="start-date" name="start_date" required>
+		
+		<label for="end-date">End Date:</label>
+		<input type="date" id="end-date" name="end_date" required>
+		
+		<label for="salary">Salary:</label>
+		<input type="number" id="salary" name="salary" step="0.01" required>
+		
+		<button type="submit">Submit</button>
+	  </form>
+	  
+	  <script>
+		const { ipcRenderer } = require('electron');
+	  
+		const form = document.querySelector('#employee-employment-history-form');
+	  
+		form.addEventListener('submit', (event) => {
+		  event.preventDefault();
+	  
+		  const formData = new FormData(form);
+	  
+		  const rowData = {
+			employee_id1: formData.get('employee_id1'),
+			jobTitleId: formData.get('job_title_id'),
+			departmentId: formData.get('department_id'),
+			startDate: formData.get('start_date'),
+			endDate: formData.get('end_date'),
+			salary: formData.get('salary')
+		  };
+	  
+		  ipcRenderer.send('form-submission', { tableName: 'Employee_employment_history', rowData });
+	  
+		  form.reset();
+		});
+	  </script>
+	 
+</body>
+</html>

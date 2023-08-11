@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+		body{
+			background-image: url("image.jpg");
+		}
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		th, td {
+			text-align: left;
+			padding: 8px;
+			border: 1px solid #ddd;
+		}
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+	</style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="employeehistory.html">Employee Employment History</a></li>
+            <li><a href="employeeHist.html"> View employee history</a></li>
+            <li><a href="addEmployeeehist.html">Add employee history</a></li>
+
+        </ul>
+    </nav>
+    <h1>Employee Employment History</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Employee ID</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Job Title</th>
+				<th>Department</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<th>Salary</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+				// code to retrieve data from database and display it in the table
+			?>
+		</tbody>
+	</table>
+</body>
+</html>

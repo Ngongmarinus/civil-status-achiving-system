@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      body{
+        background-image: url("image.jpg");
+      }
+
+		label {
+			display: block;
+			margin-bottom: 10px;
+		}
+		input[type="submit"] {
+			margin-top: 20px;
+		}
+        
+        table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            th, td {
+                text-align: left;
+                padding: 8px;
+                border: 1px solid #ddd;
+            }
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+        
+	</style>
+</head>
+<>
+    <nav>
+		<ul>
+			<li><a href="homepage.html">Home</a></li>
+            <li><a href="add_customer.html">Add Customers</a></li>
+            <li><a href="edit_customer.html">Edit Customer Info</a></li>
+			<li><a href="reports.html">Reports</a></li>
+		</ul>
+	</nav>
+     
+     
+      
+    <h1>customer edit page</h1>
+      <form id="customer-retrieval-form">
+        <label for="customer-id">Enter your customer ID:</label>
+        <input type="text" id="customer-id" name="customer-id">
+        <button type="submit">Retrieve Data</button>
+      </form>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Customer ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Address Line</th>
+              <th>City</th>
+              <th>Country</th>
+              <th>service</th>
+            </tr>
+          </thead>
+          <tbody id="customer-list-body">
+            <!-- Customer data will be dynamically added here -->
+          </tbody>
+        </table>
+        <form id="customer-edit-form">
+          <input type="hidden" name="customer-id-edit" id="customer-id-edit">
+          <label for="first-name-edit">First Name:</label>
+          <input type="text" id="first-name-edit" name="first_name-edit" required>
+        
+          <label for="last-name-edit">Last Name:</label>
+          <input type="text" id="last-name-edit" name="last_name-edit" required>
+        
+          <label for="Email-edit">Email:</label>
+          <input type="Email" id="Email-edit" name="Email-edit" required>
+        
+          <label for="phone-number-edit">Phone Number:</label>
+          <input type="tel" id="phone-number-edit" name="phone_number-edit">
+        
+          <label for="address-line-edit">Address Line:</label>
+          <input type="text" id="address-line-edit" name="address_line-edit">
+        
+          <label for="city-edit">City:</label>
+          <input type="text" id="city-edit" name="city-edit">
+   
+          <label for="country-edit">Country:</label>
+          <input type="text" id="country-edit" name="country-edit">
+        
+          <label for="service-edit">Service:</label>
+          <input type="text" id="service-edit" name="service-edit">
+  
+          <button type="submit">update customer data</button>
+        </form>
+      </div>
+      <script>
+        const ipcRenderer = require('electron').ipcRenderer;
+
+        // Retrieve customer data from the database
+        function retrieveCustomerData(customerId) {
+          ipcRenderer.invoke('data-retrieval', 'Customers', customerId).then((response) => {
+            if (response.success) {
+              const customerData = response.data;
+              if (customerData) {
+                const customerListBody = document.getElementById('customer-list-body'); 
+                
+                customerListBody.innerHTML = '';
+                const row = customerListBody.insertRow();
+                row.insertCell().textContent = customerData.customer_id;
+                row.insertCell().textContent = customerData.first_name;
+                row.insertCell().textContent = customerData.last_name;
+                row.insertCell().textContent = customerData.Email;
+                row.insertCell().textContent = customerData.phone_number;
+                row.insertCell().textContent = customerData.address_line;
+                row.insertCell().textContent = customerData.city;
+                row.insertCell().textContent = customerData.country;
+                row.insertCell().textContent = customerData.service;
+                const actionsCell = row.insertCell();
+                const editButton = document.createElement('button');
+                editButton.textContent = 'Edit';
+                editButton.addEventListener('click', () => {
+                  editCustomerData(customerData);
+                });
+                actionsCell.appendChild(editButton);
+              } else {
+                console.log(`Customer with ID ${customerId} not found`);
+              }
+            } else {
+              console.error(response.message);
+              // Handle the error
+            }
+          }).catch((err) => {
+            console.error(err);
+            // Handle the error
+          });
+        }
+        
+        // Update customer data in the database
+        function updateCustomerData(customerId, data) {
+          ipcRenderer.invoke('data-update', 'Customers', customerId, data).then((response) => {
+            if (response.success) {
+              console.log('Customer data updated successfully');
+              // Handle the success
+            } else {
+              console.error(response.message);
+              // Handle the error
+            }
+          }).catch((err) => {
+            console.error(err);
+            // Handle the error
+          });
+        }
+        
+        
+        function editCustomerData(customerData) {
+          const customerEditForm = document.getElementById('customer-edit-form');
+          customerEditForm.elements['customer-id-edit'].value = customerData.customer_id;
+          customerEditForm.elements['first-name-edit'].value = customerData.first_name;
+          customerEditForm.elements['last-name-edit'].value = customerData.last_name;
+          customerEditForm.elements['Email-edit'].value = customerData.Email;
+          customerEditForm.elements['phone_number-edit'].value = customerData.phone_number;
+          customerEditForm.elements['address-line-edit'].value = customerData.address_line;
+          customerEditForm.elements['city-edit'].value = customerData.city;
+          customerEditForm.elements['country-edit'].value = customerData.country;
+          customerEditForm.elements['service-edit'].value = customerData.service;
+          
+          customerEditForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const customerId = customerEditForm.elements['customer-id-edit'].value;
+            const data = {
+              first_name: customerEditForm.elements['first-name-edit'].value,
+              last_name: customerEditForm.elements['last-name-edit'].value,
+              Email: customerEditForm.elements['Email-edit'].value,
+             
+              phone_number: customerEditForm.elements['phone_number-edit'].value,
+              address_line: customerEditForm.elements['address-line-edit'].value,
+             
+              city: customerEditForm.elements['city-edit'].value,
+              country: customerEditForm.elements['country-edit'].value,
+              service: customerEditForm.elements['service-edit'].value,
+            };
+            
+            ipcRenderer.invoke('data-update', 'customers', customerId, data)
+              .then((response) => {
+                if (response.success) {
+                  console.log('Customer data updated successfully');
+                  // Handle the success
+                } else {
+                  console.error(response.message);
+                  // Handle the error
+                }
+              })
+              .catch((err) => {
+                console.error(err);
+                // Handle the error
+              });
+          });
+        }
+        
+      /*  // Handle edit button click
+        function editCustomerData(customerData) {
+          // Display form for editing customer data
+          const editForm = document.getElementById('customer-edit-form');
+          editForm.elements[ 'customer-id-edit'].value = customerData.customer_id;
+          editForm.elements[ 'first-name-edit'].value =customerData.first_name;
+          editForm.elements[ 'last-name-edit'].value = customerData.last_name;
+          editForm.elements[ 'email-edit'].value = customerData.email;
+          editForm.elements[ 'phone-number-edit'].value = customerData.phone_numaber;
+           editForm.elements[ 'address-line-edit'].value = customerData.address_line;
+          editForm.elements[ 'city-edit'].value = customerData.city;
+         editForm.elements[ 'country-edit'].value = customerData.country;
+          editForm.elements[ 'service-edit'].value = customerData.service;
+          editForm.addEventListener('submit', (event) => { 
+            event.preventDefault();
+            const data = {
+             // customer_id: editForm.elements['customer-id-edit'].value,
+              first_name: editForm.elements['first-name-edit'].value,
+              last_name: editForm.elements['last-name-edit'].value,
+              Email: editForm.elements['email-edit'].value,
+              phone_numaber: editForm.elements['phone-number-edit'].value,
+              city:editForm.elements['city-edit'].value,
+              country:editForm.elements['country-edit'].value,
+              service:editForm.elements['service-edit'].value,
+            };
+            updateCustomerData(customerData.customer_id, data);
+          }); 
+         
+        }
+*/
+        const customerRetrievalForm = document.getElementById('customer-retrieval-form');
+	customerRetrievalForm.addEventListener('submit', (event) => {
+	  event.preventDefault();
+	  const customerId = customerRetrievalForm.elements['customer-id'].value;
+	  retrieveCustomerData(customerId);
+  });
+        
+       
+      </script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Delete Training Record</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		body{
+			background-image: url("image.jpg");
+		}
+		label {
+			display: block;
+			margin-bottom: 10px;
+		}
+		input[type="submit"] {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	
+	<nav>
+		<ul>
+			<li><a href="homepage.html">Home</a></li>
+			<li><a href="employee.html">Employees</a></li>
+			<li><a href="employee_employment_history.php">Employee Employment History</a></li>
+			<li><a href="job_titles.php">Job Titles</a></li>
+			<li><a href="department.html">Departments</a></li>
+			<li><a href="benefit.html">Benefits</a></li>
+			<li><a href="performance_reviews.php">Performance Reviews</a></li>
+			<li><a href="training.html">Training Records</a></li>
+			<li><a href="reports.html">Reports</a></li>
+		</ul>
+	</nav>
+	<h1>Delete Training Record</h1>
+	<form action="delete_training_record.php" method="post">
+		<input type="hidden" id="training_record_id" name="training_record_id" value="1">
+
+		<p>Are you sure you want to delete the training record for employee 123?</p>
+
+		<input type="submit" value="Delete Training Record">
+	</form>
+</body>
+</html>

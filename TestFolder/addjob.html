@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Job Title</title>
+	<link rel="stylesheet" href="styl.css">
+	<style>
+		label {
+			display: block;
+			margin-bottom: 10px;
+		}
+		input[type="submit"] {
+			margin-top: 20px;
+		}
+
+		
+body {
+	background-color: #fff;
+	background-image: url("image.jpg")
+  }
+  nav ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	background-color: darkgray;
+	overflow: hidden;
+	border-radius: 15px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-ms-border-radius: 15px;
+  
+  }
+  
+  nav li {
+	float: left;
+  }
+  
+  nav li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+  }
+  
+  nav li a:hover {
+	background-color: yellowgreen;
+  }
+  
+  
+  #bjobtitles-form {
+	width: 70%;
+	margin: 0 auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	/* Add the following lines to give 200px on the left and right */
+	margin-left: 150px;
+	margin-right: 150px;
+	height: 450px;
+  }
+  
+  #bjobtitles-form label {
+	display: inline-block;
+	width: 30%;
+	margin-right: 1px;
+	text-align: left;
+	margin-left: 30px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+  
+  }
+  
+  #bjobtitles-form input,
+  #bjobtitles-form textarea,
+  #bjobtitles-form select {
+	display: inline-block;
+	width: 60%;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	height: 30px;
+  }
+  
+  #bjobtitles-form input[type="submit"] {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	padding: 10px 20px;
+	font-size: 16px;
+	margin-top: 50px;
+	margin-left: 1px;
+	height: 50px;
+	width: 300px;
+  }
+  
+  #bjobtitles-form input[type="submit"]:hover {
+	background-color: #3e8e41;
+  }
+  
+	</style>
+</head>
+<body>
+	
+	<nav>
+		<ul>
+			<li><a href="homepage.html">Home</a></li>
+			<li><a href="employee.html">Employees</a></li>
+			<li><a href="employee_employment_history.php">Employee Employment History</a></li>
+			<li><a href="job_titles.php">Job Titles</a></li>
+			<li><a href="department.html">Departments</a></li>
+			<li><a href="benefit.html">Benefits</a></li>
+			<li><a href="performance_reviews.php">Performance Reviews</a></li>
+			<li><a href="training.html">Training Records</a></li>
+			<li><a href="reports.html">Reports</a></li>
+		</ul>
+	</nav>
+	<h1>Add Job Title</h1>
+	<form id="bjobtitles-form">
+		<label for="job-title-id">Job Title ID:</label>
+		<input type="number" id="job-title-id" name="job_title_id" required>
+		
+		<label for="job-title-name">Job Title Name:</label>
+		<input type="text" id="job-title-name" name="job_title_name" required>
+		
+		<label for="job-description">Job Description:</label>
+		<input type="text" id="job-description" name="job_description" required>
+		
+		<label for="required-qualifications">Required Qualifications:</label>
+		<input type="text" id="required-qualifications" name="required_qualifications" required>
+		
+		<button type="submit">Submit</button>
+	  </form>
+	  
+	  <script>
+		const { ipcRenderer } = require('electron');
+	  
+		const form = document.querySelector('#bjobtitles-form');
+	  
+		form.addEventListener('submit', (event) => {
+		  event.preventDefault();
+	  
+		  const formData = new FormData(form);
+	  
+		  const rowData = {
+			job_title_id: formData.get('job_title_id'),
+			jobTitleName: formData.get('job_title_name'),
+			jobDescription: formData.get('job_description'),
+			requiredQualifications: formData.get('required_qualifications')
+		  };
+	  
+		  ipcRenderer.send('form-submission', { tableName: 'BJob_titles', rowData });
+	  
+		  form.reset();
+		});
+	  </script>
+</body>
+</html>

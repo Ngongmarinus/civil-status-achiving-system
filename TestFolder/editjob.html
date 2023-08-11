@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit Job Title</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		body{
+			background-image: url("image.jpg");
+		}
+		label {
+			display: block;
+			margin-bottom: 10px;
+		}
+		input[type="submit"] {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	
+    <nav>
+		<ul>
+			<li><a href="homepage.html">Home</a></li>
+			<li><a href="employee.html">Employees</a></li>
+			<li><a href="employee_employment_history.php">Employee Employment History</a></li>
+			<li><a href="job_title.php">Job Titles</a></li>
+			<li><a href="department.html">Departments</a></li>
+			<li><a href="benefit.html">Benefits</a></li>
+			<li><a href="performance_reviews.php">Performance Reviews</a></li>
+			<li><a href="training.html">Training Records</a></li>
+			<li><a href="reports.html">Reports</a></li>
+		</ul>
+	</nav>
+	<h1>Edit Job Title</h1>
+	<form action="edit_job_title.php" method="post">
+		<input type="hidden" id="job_title_id" name="job_title_id" value="1">
+
+		<label for="title">Title:</label>
+		<input type="text" id="title" name="title" value="Software Engineer" required>
+
+		<label for="description">Description:</label>
+		<textarea id="description" name="description" required>Responsible for designing and developing software applications.</textarea>
+
+		<input type="submit" value="Save Changes">
+	</form>
+</body>
+</html>

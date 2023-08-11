@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Benefit</title>
+	<link rel="stylesheet" href="styl.css">
+	<style>
+		body {
+			background-color: #fff;
+			background-image: url("image.jpg")
+		  }
+		  nav ul {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+			background-color: darkgray;
+			overflow: hidden;
+			border-radius: 15px;
+			-webkit-border-radius: 15px;
+			-moz-border-radius: 15px;
+			-ms-border-radius: 15px;
+		  
+		  }
+		  
+		  nav li {
+			float: left;
+		  }
+		  
+		  nav li a {
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		  }
+		  
+		  nav li a:hover {
+			background-color: yellowgreen;
+		  }
+		  
+#fbenefits-form {
+	width: 70%;
+	margin: 0 auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	/* Add the following lines to give 200px on the left and right */
+	margin-left: 150px;
+	margin-right: 150px;
+	height: 450px;
+  }
+  
+  #fbenefits-form label {
+	display: inline-block;
+	width: 30%;
+	margin-right: 1px;
+	text-align: left;
+	margin-left: 30px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+  
+  }
+  
+  #fbenefits-form input,
+  #fbenefits-form textarea,
+  #fbenefits-form select {
+	display: inline-block;
+	width: 60%;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	height: 30px;
+	margin-top: 15px;
+  }
+  
+  #fbenefits-form button[type="submit"] {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	padding: 10px 20px;
+	font-size: 16px;
+	margin-top: 50px;
+	margin-left: 450px;
+	height: 50px;
+	width: 300px;
+  }
+  
+  #fbenefits-form button[type="submit"]:hover {
+	background-color: #3e8e41;
+  }
+  
+	</style>
+</head>
+<body>
+	
+	<nav>
+		<ul>
+			<li><a href="homepage.html">Home</a></li>
+			<li><a href="listBenefits.html">list benefits</a></li>
+			<li><a href="addBenefit.html">Add benefits</a></li>
+            <li><a href="DeleteBenefits.html">Delete benefits</a></li>
+            <li><a href="editBenefits.html">Edit benefits</a></li>
+		</ul>
+	</nav>
+	<h1>Add Benefit</h1>
+	<form id="fbenefits-form">
+		<label for="employee-Id">Employee ID:</label>
+		<input type="number" id="employee-Id" name="employee_Id" required>
+		
+		<label for="health-insurance">Insurance:</label>
+		<input type="text" id="health-insurance" name="health_insurance" required>
+
+		<label for="retirement-plan">Retirement Plan:</label>
+		<input type="text" id="retirement-plan" name="retirement_plan" required>
+
+		<label for="vacation-day">Vacation Date:</label>
+		<input type="date" id="vacation-day" name="vacation_day" required>
+
+		<label for="sick-days">sick date:</label>
+		<input type="date" id="sick-days" name="sick_days" required>
+		 
+		<button type="submit">Submit</button>
+	  </form>
+	  
+	  <script>
+		const { ipcRenderer } = require('electron');
+	  
+		const form = document.querySelector('#fbenefits-form');
+	  
+		form.addEventListener('submit', (event) => {
+		  event.preventDefault();
+	  
+		  const formData = new FormData(form);
+	  
+		  const rowData = {
+			employee_Id: formData.get('employee_Id'),
+			healthInsurance: formData.get('health_insurance'),
+			retirementPlan: formData.get('retirement_plan'),
+			vacationDays: formData.get('vacation_days'),
+			sickDays: formData.get('sick_days')
+		  };
+	  
+		  ipcRenderer.send('form-submission', { tableName: 'FBenefits', rowData });
+	  
+		  form.reset();
+		});
+	  </script>
+</body>
+</html>

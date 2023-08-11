@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit Department</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+		body{
+			background-image: url("image.jpg");
+		}
+		label {
+			display: block;
+			margin-bottom: 10px;
+		}
+		input[type="submit"] {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	
+	<nav>
+		<ul>
+			<li><a href="homepage.html">Home</a></li>
+			<li><a href="employee.html">Employees</a></li>
+			<li><a href="employee_employment_history.php">Employee Employment History</a></li>
+			<li><a href="job_titles.php">Job Titles</a></li>
+			<li><a href="department.html">Departments</a></li>
+			<li><a href="benefit.html">Benefits</a></li>
+			<li><a href="performance_reviews.php">Performance Reviews</a></li>
+			<li><a href="training.html">Training Records</a></li>
+			<li><a href="reports.html">Reports</a></li>
+		</ul>
+	</nav>
+	<h1>Edit Department</h1>
+	<form action="edit_department.php" method="post">
+		<input type="hidden" id="department_id" name="department_id" value="1">
+
+		<label for="name">Name:</label>
+		<input type="text" id="name" name="name" value="Engineering" required>
+
+		<label for="description">Description:</label>
+		<textarea id="description" name="description" required>The engineering department is responsible for designing and developing software applications.</textarea>
+
+		<input type="submit" value="Save Changes">
+	</form>
+</body>
+</html>
